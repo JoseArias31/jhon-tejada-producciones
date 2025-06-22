@@ -21,6 +21,37 @@ import {
 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+// Centralized data structure for portfolio sections
+const portfolioSections = [
+  {
+    id: "modelaje",
+    title: "Modelaje",
+    description: "Capturamos la magia de tu día especial",
+    badge: "modelaje",
+    image: "/modelaje/WhatsApp Image 2025-06-18 at 17.16.37.jpeg",
+    alt: "modelaje",
+    galleryPath: "/gallery/modelaje",
+    objectPosition: "object-top" // Align this image to the top
+  },
+  {
+    id: "FestivalFolclorico",
+    title: "Festival Folclorico",
+    description: "Elegancia y romance en cada imagen",
+    badge: "Festival Folclorico",
+    image: "/XXXIV festival folclorico/festival portada.jpg",
+    alt: "Festival Folclorico",
+    galleryPath: "/gallery/FestivalFolclorico",
+    objectPosition: "object-center" // Default alignment
+  }
+]
 
 export default function HomePage() {
   return (
@@ -30,7 +61,6 @@ export default function HomePage() {
         <div className="container mx-auto px-4 py-4">
           <nav className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <Camera className="h-8 w-8 text-rose-600" />
               <span className="text-xl font-bold text-gray-900">JHON TEJADA PRODUCCIONES</span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
@@ -60,31 +90,55 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section id="inicio" className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40 z-10">
+          <Image
+            src="/logotejada.png"
+            alt="Jhon Tejada Producciones Logo"
+            width={200}
+            height={200}
+            className="absolute top-8 left-8 h-56 md:h-80 w-auto z-20"
+          />
+        </div>
+        
+        {/* Small devices - portada.jpeg */}
         <Image
-          src="/placeholder.svg?height=1080&width=1920"
+          src="/portada.jpeg"
           alt="Hero Background"
           fill
-          className="object-cover"
+          className="object-cover object-center md:hidden"
           priority
+          sizes="100vw"
+          quality={90}
         />
+        
+        {/* Large devices - portada2.png */}
+        <Image
+          src="/portada2.png"
+          alt="Hero Background"
+          fill
+          className="hidden md:block object-contain object-center lg:object-contain xl:object-contain"
+          priority
+          sizes="(max-width: 1024px) 90vw, 80vw"
+          quality={90}
+        />
+        
         <div className="relative z-20 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
             Capturamos tus
             <span className="text-rose-400 block">Momentos Únicos</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-gray-200">
+          <p className="text-lg sm:text-xl md:text-2xl mb-8 text-gray-200">
             Producción audiovisual y fotográfica profesional para eventos sociales y culturales
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-rose-600 hover:bg-rose-700 text-lg px-8 py-3">
+            <Button size="lg" className="bg-rose-600 hover:bg-rose-700 text-lg px-6 sm:px-8 py-3">
               <Camera className="h-5 w-5 mr-2" />
               Ver Portafolio
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="text-white border-white hover:bg-white hover:text-gray-900 text-lg px-8 py-3"
+              className="text-white border-white hover:bg-white hover:text-gray-900 text-lg px-6 sm:px-8 py-3"
             >
               <Play className="h-5 w-5 mr-2" />
               Ver Videos
@@ -141,127 +195,63 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Matrimonios */}
-            <Card className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
-              <div className="relative h-64 overflow-hidden">
-                <Image
-                  src="/placeholder.svg?height=400&width=600"
-                  alt="Matrimonios"
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <Badge className="absolute top-4 left-4 bg-rose-600">Matrimonios</Badge>
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-2">Matrimonios</h3>
-                <p className="text-gray-600 mb-4">Capturamos la magia de tu día especial</p>
-                <Button variant="outline" className="w-full">
-                  Ver Galería
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Bodas */}
-            <Card className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
-              <div className="relative h-64 overflow-hidden">
-                <Image
-                  src="/placeholder.svg?height=400&width=600"
-                  alt="Bodas"
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <Badge className="absolute top-4 left-4 bg-rose-600">Bodas</Badge>
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-2">Bodas</h3>
-                <p className="text-gray-600 mb-4">Elegancia y romance en cada imagen</p>
-                <Button variant="outline" className="w-full">
-                  Ver Galería
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Cumpleaños */}
-            <Card className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
-              <div className="relative h-64 overflow-hidden">
-                <Image
-                  src="/placeholder.svg?height=400&width=600"
-                  alt="Cumpleaños"
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <Badge className="absolute top-4 left-4 bg-rose-600">Cumpleaños</Badge>
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-2">Cumpleaños</h3>
-                <p className="text-gray-600 mb-4">Celebraciones llenas de alegría</p>
-                <Button variant="outline" className="w-full">
-                  Ver Galería
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Eventos Empresariales */}
-            <Card className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
-              <div className="relative h-64 overflow-hidden">
-                <Image
-                  src="/placeholder.svg?height=400&width=600"
-                  alt="Eventos Empresariales"
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <Badge className="absolute top-4 left-4 bg-rose-600">Empresariales</Badge>
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-2">Eventos Empresariales</h3>
-                <p className="text-gray-600 mb-4">Profesionalismo en cada detalle</p>
-                <Button variant="outline" className="w-full">
-                  Ver Galería
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Eventos Culturales */}
-            <Card className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
-              <div className="relative h-64 overflow-hidden">
-                <Image
-                  src="/placeholder.svg?height=400&width=600"
-                  alt="Eventos Culturales"
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <Badge className="absolute top-4 left-4 bg-rose-600">Culturales</Badge>
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-2">Eventos Culturales</h3>
-                <p className="text-gray-600 mb-4">Arte y cultura en movimiento</p>
-                <Button variant="outline" className="w-full">
-                  Ver Galería
-                </Button>
-              </CardContent>
-            </Card>
+            {portfolioSections.map((section) => (
+              <Card key={section.id} className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <div className="relative h-64 overflow-hidden">
+                  <Image
+                    src={section.image}
+                    alt={section.alt}
+                    fill
+                    className={`object-cover ${section.objectPosition || 'object-center'} group-hover:scale-110 transition-transform duration-300`}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  <Badge className="absolute top-4 left-4 bg-rose-600">{section.badge}</Badge>
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">{section.title}</h3>
+                  <p className="text-gray-600 mb-4">{section.description}</p>
+                  <Link href={section.galleryPath}>
+                    <Button variant="outline" className="w-full">
+                      Ver Galería
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
 
             {/* Videos YouTube */}
-            <Card className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
-              <div className="relative h-64 overflow-hidden bg-black flex items-center justify-center">
-                <Youtube className="h-16 w-16 text-red-600" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <Badge className="absolute top-4 left-4 bg-red-600">Videos</Badge>
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-2">Videos Destacados</h3>
-                <p className="text-gray-600 mb-4">Nuestros mejores trabajos audiovisuales</p>
-                <Button variant="outline" className="w-full">
-                  <Youtube className="h-4 w-4 mr-2" />
-                  Ver Canal
-                </Button>
-              </CardContent>
-            </Card>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Card className="group hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer">
+                  <div className="relative h-64 overflow-hidden bg-black flex items-center justify-center">
+                    <Youtube className="h-16 w-16 text-red-600" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <Badge className="absolute top-4 left-4 bg-red-600">Videos</Badge>
+                  </div>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-semibold mb-2">Video Destacado</h3>
+                    <p className="text-gray-600 mb-4">Mira nuestro último trabajo audiovisual</p>
+                    <Button variant="outline" className="w-full">
+                      <Play className="h-4 w-4 mr-2" />
+                      Reproducir Video
+                    </Button>
+                  </CardContent>
+                </Card>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl h-auto p-0">
+                <div className="aspect-video">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/-_ydOlTc_8w?autoplay=1"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </section>
@@ -476,12 +466,12 @@ export default function HomePage() {
                 <h4 className="font-semibold text-gray-900 mb-4">Síguenos en Redes Sociales</h4>
                 <div className="flex space-x-4">
                   <Link
-                    href="#"
+                    href="https://www.facebook.com/people/Jhon-Tejada-Producciones/100088322524782/?mibextid=wwXIfr&rdid=eqIPE0pPSOP4uz3V&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16KXVxJmRg%2F%3Fmibextid%3DwwXIfr"
                     className="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-colors"
                   >
                     <Facebook className="h-5 w-5" />
                   </Link>
-                  <Link href="#" className="bg-red-600 text-white p-3 rounded-full hover:bg-red-700 transition-colors">
+                  <Link href="https://www.youtube.com/@jhontejada/videos" className="bg-red-600 text-white p-3 rounded-full hover:bg-red-700 transition-colors">
                     <Youtube className="h-5 w-5" />
                   </Link>
                   <Link

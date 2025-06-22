@@ -138,7 +138,7 @@ export default function HomePage() {
             <Button
               size="lg"
               variant="outline"
-              className="text-white border-white hover:bg-white hover:text-gray-900 text-lg px-6 sm:px-8 py-3"
+              className="text-black border-white hover:bg-gray hover:text-gray-900 text-lg px-6 sm:px-8 py-3"
             >
               <Play className="h-5 w-5 mr-2" />
               Ver Videos
@@ -229,7 +229,7 @@ export default function HomePage() {
                     <Badge className="absolute top-4 left-4 bg-red-600">Videos</Badge>
                   </div>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold mb-2">Video Destacado</h3>
+                    <h3 className="text-xl font-semibold mb-2">Video Promocional Lechona</h3>
                     <p className="text-gray-600 mb-4">Mira nuestro último trabajo audiovisual</p>
                     <Button variant="outline" className="w-full">
                       <Play className="h-4 w-4 mr-2" />
@@ -359,7 +359,7 @@ export default function HomePage() {
             </div>
             <div className="relative">
               <Image
-                src="/placeholder.svg?height=600&width=500"
+                src="/sobrenosotros.jpeg"
                 alt="Jhon Tejada"
                 width={500}
                 height={600}
